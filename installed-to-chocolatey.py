@@ -2,6 +2,7 @@ import winreg
 import requests 
 import feedparser
 import urllib.parse
+import sys
 
 # https://stackoverflow.com/questions/53132434/list-of-installed-programs
 def foo(hive, flag):
@@ -42,18 +43,19 @@ for software in software_list:
     url = "https://chocolatey.org/api/v2/Search()?$filter=IsLatestVersion&$skip=0&$top=2&searchTerm=" + urllib.parse.quote("'" + software['name'] + "'") + "&targetFramework=%27%27&includePrerelease=false"
     d = feedparser.parse(url)
     if (len(d['entries']) > 0 and 'title' in d['entries'][0]):
-        names_and_feeds[software['name']] = d['entries'][0]['title']
+        names_and_feeds[software['name']] = {"name": d['entries'][0]['title'], "version": software['version']}
     else:
         # remove the last word and re-do the search
         software['name'] = software['name'].rsplit(' ', 1)[0]
         url = "https://chocolatey.org/api/v2/Search()?$filter=IsLatestVersion&$skip=0&$top=2&searchTerm=" + urllib.parse.quote("'" + software['name'] + "'") + "&targetFramework=%27%27&includePrerelease=false"
         d = feedparser.parse(url)
         if (len(d['entries']) > 0 and 'title' in d['entries'][0]):
-            names_and_feeds[software['name']] = d['entries'][0]['title']
-print("Chocolatey Package List:")
-for software in list(set(names_and_feeds.keys())):
-    print(names_and_feeds[software])
+            names_and_feeds[software['name']] = {"name": d['entries'][0]['title'], "version": software['version']}
     
-print("\n\n\nThis is how I matched them:")
+print("﻿<?xml version=\"1.0\" encoding=\"utf-8\"?><packages>")
+for software in list(set(names_and_feeds.keys())):
+    print("<package id=\"" + names_and_feeds[software]['name'] + "\" version=\"" + names_and_feeds[software]['version'] + "\" />")
+print("</packages>")
+sys.stderr.write("\n\n\nThis is how I matched them:")
 for software in names_and_feeds.keys():
-    print(software + "->" + names_and_feeds[software])
+    sys.stderr.write(software + "->" + names_and_feeds[software]['name'] + "\n")

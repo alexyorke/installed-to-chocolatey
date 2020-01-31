@@ -10,6 +10,8 @@ This does not modify any installed programs. It just lists which ones that can b
 
 It is not perfect as sometimes the app names contain other numbers which conflict with Chocolatey's search, causing no search results. There is some primitive filtering on the programs (e.g. exclude updates and uninstallers) and it will remove the last word of the program name (e.g. `(x64)`) if no search results were found and then do another search. Always double check that the programs match before installing software from Chocolatey.
 
+While the version number is available, it does not lookup the version when finding packages. Therefore, it always finds the latest version.
+
 
 ## Sample report (truncated)
 ```

@@ -3,6 +3,8 @@ Convert your locally installed software into Chocolatey packages. This looks up 
 
 The code is absolutely atrocious; PRs are welcome.
 
+This does not modify any installed programs. It just lists which ones that can be found via Chocolatey.
+
 
 ## Known issues
 

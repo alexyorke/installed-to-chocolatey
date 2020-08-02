@@ -5,6 +5,7 @@ The code is absolutely atrocious; PRs are welcome.
 
 This does not modify any installed programs. It just lists which ones that can be found via Chocolatey.
 
+[![Updates](https://pyup.io/repos/github/alexyorke/installed-to-chocolatey/shield.svg)](https://pyup.io/repos/github/alexyorke/installed-to-chocolatey/) [![Python 3](https://pyup.io/repos/github/alexyorke/installed-to-chocolatey/python-3-shield.svg)](https://pyup.io/repos/github/alexyorke/installed-to-chocolatey/)
 
 ## Known issues
 
